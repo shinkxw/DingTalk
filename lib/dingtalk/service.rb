@@ -6,9 +6,21 @@
     def department_list(**params)
       get_result('department/list', params)['department']
     end
-    #获取部门详情
+    #获取部门详情 id:部门id
     def department_get(**params)
       get_result('department/get', params)
+    end
+    #获取成员详情 userid:员工id
+    def user_get(**params)
+      get_result('user/get', params)
+    end    
+    #获取部门成员 department_id:部门id
+    def user_simplelist(**params)
+      get_result('user/simplelist', params)
+    end
+    #获取部门成员(详情) department_id:部门id offset:偏移量 size:分页大小
+    def user_list(**params)
+      get_result('user/list', params)
     end
     #考勤打卡数据 userId workDateFrom:yyyy-MM-dd hh:mm:ss workDateTo:yyyy-MM-dd hh:mm:ss
     def attendance_list(**params)
