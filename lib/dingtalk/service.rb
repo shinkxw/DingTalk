@@ -3,8 +3,12 @@
     GATEWAY_URL = 'https://oapi.dingtalk.com'
     module_function
     #获取部门列表
-    def department_list
-      get_result('department/list')['department']
+    def department_list(**params)
+      get_result('department/list', params)['department']
+    end
+    #获取部门详情
+    def department_get(**params)
+      get_result('department/get', params)
     end
     #考勤打卡数据 userId workDateFrom:yyyy-MM-dd hh:mm:ss workDateTo:yyyy-MM-dd hh:mm:ss
     def attendance_list(**params)
@@ -13,10 +17,10 @@
     #获取AccessToken corpid corpsecret
     def get_token(corpid, corpsecret)
       params = {:corpid => corpid, :corpsecret => corpsecret}
-      get_result('gettoken', params, add_token: false)['access_token']
+      get_result('gettoken', params, :get, false)['access_token']
     end
     
-    def get_result(url, params = {}, method = :get, add_token: true)
+    def get_result(url, params = {}, method = :get, add_token = true)
       request_url = "#{GATEWAY_URL}/#{url}"
       request_url += "?access_token=#{access_token}" if add_token
       response = get_response(request_url, method, params)
