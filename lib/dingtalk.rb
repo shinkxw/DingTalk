@@ -2,6 +2,8 @@
 require 'rest-client'
 require 'dingtalk/version'
 require 'dingtalk/service'
+require 'dingtalk/department'
+require 'dingtalk/user'
 
 module DingTalk
   class << self

@@ -16,11 +16,11 @@
     end    
     #获取部门成员 department_id:部门id
     def user_simplelist(**params)
-      get_result('user/simplelist', params)
+      get_result('user/simplelist', params)['userlist']
     end
     #获取部门成员(详情) department_id:部门id offset:偏移量 size:分页大小
     def user_list(**params)
-      get_result('user/list', params)
+      get_result('user/list', params)['userlist']
     end
     #考勤打卡数据 userId workDateFrom:yyyy-MM-dd hh:mm:ss workDateTo:yyyy-MM-dd hh:mm:ss
     def attendance_list(**params)
