@@ -38,8 +38,17 @@
       response = get_response(request_url, method, params)
       #~ puts response.request.url
       result = JSON.parse(response.to_str)
-      puts "#{url}: #{result}" if result['errcode'] != 0
+      case result['errcode']
+      when 0
+      when 40014#token过期
+        raise TokenExpiredException if result['errcode'] == 40014
+      else
+        puts "#{url}: #{result}"
+      end
       result
+    rescue TokenExpiredException
+      DingTalk.access_token = get_access_token
+      retry
     end
     def get_response(url, method, params)
       case method
@@ -61,5 +70,7 @@
         raise "请设置DingTalk的corpid与corpsecret参数"
       end
     end
+  end
+  class TokenExpiredException < Exception
   end
 end
