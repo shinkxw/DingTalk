@@ -4,6 +4,7 @@ require 'dingtalk/version'
 require 'dingtalk/service'
 require 'dingtalk/department'
 require 'dingtalk/user'
+require 'dingtalk/attendance'
 
 module DingTalk
   class << self

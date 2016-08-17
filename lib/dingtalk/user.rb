@@ -7,6 +7,10 @@
     def initialize(hash)
       @id, @name, @data = hash['userid'], hash['name'], hash
     end
+    def attendances(start_time, end_time)
+      params = {workDateFrom: start_time, workDateTo: end_time, userId: @id}
+      Attendance.list(**params)
+    end
     def method_missing(m, *args)
       m = m.to_s
       unless @data.has_key?(m)
