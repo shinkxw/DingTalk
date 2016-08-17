@@ -2,17 +2,23 @@
   module Service
     GATEWAY_URL = 'https://oapi.dingtalk.com'
     module_function
+    #获取部门列表
+    def department_list
+      get_result('department/list')['department']
+    end
     #考勤打卡数据 userId workDateFrom:yyyy-MM-dd hh:mm:ss workDateTo:yyyy-MM-dd hh:mm:ss
     def attendance_list(**params)
-      get_result('attendance/list', method: :post, params: params)['recordresult']
+      get_result('attendance/list', params, :post)['recordresult']
     end
     #获取AccessToken corpid corpsecret
     def get_token(corpid, corpsecret)
       params = {:corpid => corpid, :corpsecret => corpsecret}
-      get_result('gettoken', method: :get, params: params)['access_token']
+      get_result('gettoken', params, add_token: false)['access_token']
     end
-    def get_result(url, method: :post, params: {})
+    
+    def get_result(url, params = {}, method = :get, add_token: true)
       request_url = "#{GATEWAY_URL}/#{url}"
+      request_url += "?access_token=#{access_token}" if add_token
       response = get_response(request_url, method, params)
       #~ puts response.request.url
       result = JSON.parse(response.to_str)
@@ -24,7 +30,6 @@
       when :get
         RestClient.get(url, {:params => params})
       when :post
-        url += "?access_token=#{access_token}"
         json = params.to_json
         RestClient.post(url, json, {'Content-Type' => 'application/json'})
       else
