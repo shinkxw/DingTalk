@@ -5,10 +5,13 @@
     end
     attr_reader :id, :userId
     def initialize(hash)
-      @id, @userId, @groupId, @planId = hash['id'], hash['userId'], hash['groupId'], hash['planId']
-      @baseCheckTime, @userCheckTime = hash['baseCheckTime'], hash['userCheckTime']
-      @workDate, @timeResult = hash['workDate'], hash['timeResult']
-      @checkType, @locationResult = hash['checkType'], hash['locationResult']
+      hash.each do |k, v|
+        instance_variable_set("@#{k}", v)
+      end
     end
+    def day;to_time(@workDate) end
+    def btime;to_time(@baseCheckTime) end
+    def utime;to_time(@userCheckTime) end
+    def to_time(int);Time.at(int / 1000) end
   end
 end
