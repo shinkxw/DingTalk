@@ -7,6 +7,7 @@
     def initialize(hash)
       hash.each{|k, v| instance_variable_set("@#{k}", v)}
     end
+    def user;@user ||= User.get(@userId, true) end
     def day;to_time(@workDate) end
     def btime;to_time(@baseCheckTime) end
     def utime;to_time(@userCheckTime) end
