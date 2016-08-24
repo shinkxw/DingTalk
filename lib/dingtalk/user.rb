@@ -1,6 +1,6 @@
 ﻿module DingTalk
   class User
-    def self.list;Department.list.flat_map{|d| d.users} end
+    def self.list;Department.list.flat_map{|d| d.users}.uniq{|u| u.id} end
     def self.get(id, need_pretension = false)
       if need_pretension
         @uid_user_hash ||= list.map{|u| [u.id, u]}.to_h
@@ -13,6 +13,7 @@
     def initialize(hash)
       @id, @name, @data = hash['userid'], hash['name'], hash
     end
+    def departments;department.map{|did| Department.get(did)} end
     def attendances(start_time, end_time)
       params = {workDateFrom: start_time, workDateTo: end_time, userId: @id}
       Attendance.list(**params)
