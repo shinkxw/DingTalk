@@ -22,6 +22,10 @@
     def user_list(**params)
       get_result('user/list', params)['userlist']
     end
+    #根据手机号获取员工userid mobile:手机号
+    def get_userid_by_mobile(**params)
+      get_result('user/get_by_mobile', params)['userid']
+    end
     #考勤打卡数据 userId workDateFrom:yyyy-MM-dd hh:mm:ss workDateTo:yyyy-MM-dd hh:mm:ss
     def attendance_list(**params)
       get_result('attendance/list', params, :post)['recordresult']
