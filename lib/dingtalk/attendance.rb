@@ -5,9 +5,7 @@
     end
     attr_reader :id, :userId
     def initialize(hash)
-      hash.each do |k, v|
-        instance_variable_set("@#{k}", v)
-      end
+      hash.each{|k, v| instance_variable_set("@#{k}", v)}
     end
     def day;to_time(@workDate) end
     def btime;to_time(@baseCheckTime) end
